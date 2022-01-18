@@ -1,0 +1,173 @@
+version: "3.9"
+services:
+  master:
+    image: blazemeter/taurus:1.16.2
+    container_name: master
+    environment:
+      - TZ=${timezone}
+    volumes:
+      - ./key/rmi_keystore.jks:${keystorePath}:ro
+      - ./py/jmx2yaml.py:/usr/local/bin/jmx2yaml:ro
+      - ./artifacts:/tmp/artifacts
+      - ./bzt-configs:/bzt-configs
+      - ./data:/data
+      - ./log:/mnt/jmeter
+    # entrypoint: jmx2yaml /bzt-configs/mixlatest.jmx -o mixlatest.yml -d modified.jmx
+    command: ${file} ${report}
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2048M
+        reservations:
+          cpus: '0.25'
+          memory: 200M
+    tty: true
+    depends_on: 
+      - influxdb
+      - telegraf
+    networks:
+      jmeter-slave:
+        ipv4_address: 192.168.0.21
+      monitoring:
+  slave-1:
+    image: ${slaveImage}
+    container_name: slave-1
+    environment:
+      - JMETER_VERSION=${jmeterVersion}
+      - IMAGE_TIMEZONE=${timezone}
+    volumes:
+      - ./key/rmi_keystore.jks:${keystorePath}:ro
+      - ./plugins:/plugins:ro
+      - ./data:/data
+      - ./log:/mnt/jmeter
+    command: -s -n -Jserver.rmi.localport=${slavePort} -Jserver.rmi.ssl.keystore.file=${keystorePath} -Jslave=${slave1} -j /mnt/jmeter/slave/${slave1}.log
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2048M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    depends_on: 
+      - master
+    networks:
+      jmeter-slave:
+        ipv4_address: 192.168.0.101
+  slave-2:
+    image: ${slaveImage}
+    container_name: slave-2
+    environment:
+      - JMETER_VERSION=${jmeterVersion}
+      - IMAGE_TIMEZONE=${timezone}
+    volumes:
+      - ./key/rmi_keystore.jks:${keystorePath}:ro
+      - ./plugins:/plugins:ro
+      - ./data:/data
+      - ./log:/mnt/jmeter
+    command: -s -n -Jserver.rmi.localport=${slavePort} -Jserver.rmi.ssl.keystore.file=${keystorePath} -Jslave=${slave2} -j /mnt/jmeter/slave/${slave2}.log
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2048M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    depends_on: 
+      - master
+    networks:
+      jmeter-slave:
+        ipv4_address: 192.168.0.102
+  slave-3:
+    image: ${slaveImage}
+    container_name: slave-3
+    environment:
+      - JMETER_VERSION=${jmeterVersion}
+      - IMAGE_TIMEZONE=${timezone}
+    volumes:
+      - ./key/rmi_keystore.jks:${keystorePath}:ro
+      - ./plugins:/plugins:ro
+      - ./data:/data
+      - ./log:/mnt/jmeter
+    command: -s -n -Jserver.rmi.localport=${slavePort} -Jserver.rmi.ssl.keystore.file=${keystorePath} -Jslave=${slave3} -j /mnt/jmeter/slave/${slave3}.log
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2048M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    depends_on: 
+      - master
+    networks:
+      jmeter-slave:
+        ipv4_address: 192.168.0.103
+  influxdb:
+    image: influxdb:2.1.1
+    container_name: influxdb
+    ports:
+    - 50000:8086
+    environment:
+     - DOCKER_INFLUXDB_INIT_MODE=setup
+     - DOCKER_INFLUXDB_INIT_USERNAME=${influxUsername}
+     - DOCKER_INFLUXDB_INIT_PASSWORD=${influxPassword}
+     - DOCKER_INFLUXDB_INIT_ORG=${influxOrg}
+     - DOCKER_INFLUXDB_INIT_BUCKET=${influxBucket}
+     - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${influxToken}
+    volumes:
+     - influxdb-storage:/var/lib/influxdb
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 1028M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    networks:
+      monitoring:
+        ipv4_address: ${influxAddr}
+  telegraf:
+    image: telegraf:1.21.2-alpine
+    container_name: telegraf
+    user: root
+    environment:
+    - INFLUX_ADDR=${influxAddr}
+    - INFLUX_ORG=${influxOrg}
+    - INFLUX_TOKEN=${influxToken}
+    volumes:
+    - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    - /var/run/docker.sock:/var/run/docker.sock
+    command: sudo usermod -aG docker telegraf
+    depends_on: 
+      - influxdb
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
+    networks:
+      monitoring:
+        ipv4_address: 192.168.1.202
+networks:
+  jmeter-slave:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.0.0/24
+          gateway: 192.168.0.1
+  monitoring:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.1.0/24
+          gateway: 192.168.1.1
+volumes:
+  influxdb-storage:
+

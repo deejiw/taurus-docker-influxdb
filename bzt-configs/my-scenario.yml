@@ -1,0 +1,76 @@
+execution:
+- scenario: welcome
+  distributed:
+    - slave-1
+    - slave-2
+  concurrency: 10
+  ramp-up: ${__P(ramp-up,)}
+  hold-for: ${__P(hold-for,)}
+  iterations: ${__P(iterations,)}
+- scenario: purchase
+  distributed:
+    - slave-3
+  concurrency: 5
+  ramp-up: ${__P(ramp-up,)}
+  hold-for: ${__P(hold-for,)}
+  iterations: ${__P(iterations,)}
+  
+scenarios:
+  welcome:
+    script: ./welcome.jmx
+    # modifications:
+    #    set-prop:
+    #     "influxDBListener>Arguments.arguments.influxdbMetricsSender": "org.apache.jmeter.visualizers.backend.influxdb.HttpMetricsSender"
+    #     "influxDBListener>arguments[influxdbUrl]": "http://192.168.0.201:8086/api/v2/write?org=ktb&amp;bucket=jmeter"
+    #     "influxDBListener>Arguments.arguments[influxdbToken]": "jmeter"
+    #     "influxDBListener>Arguments.arguments[measurement]": "jmeter"
+  purchase:
+    script: ./purchase.jmx
+
+
+modules:
+  local:
+    sequential: false
+  jmeter:
+    version: "5.4.2"
+    download-link: https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-{version}.zip
+    path: ~/.bzt/jmeter-taurus/bin/jmeter
+    force-ctg: true
+    detect-plugins: true
+    fix-log4j: true
+    plugins:
+    - jpgc-casutg=2.10
+    - bzm-random-csv=0.8
+    plugins-manager:
+      download-link: https://search.maven.org/remotecontent?filepath=kg/apc/jmeter-plugins-manager/{version}/jmeter-plugins-manager-{version}.jar
+      version: 1.3
+    command-runner:
+      download-link: https://search.maven.org/remotecontent?filepath=kg/apc/cmdrunner/{version}/cmdrunner-{version}.jar
+      version: 2.2
+    cmdline: "-X -Jserver.rmi.ssl.keystore.file=/opt/apache-jmeter-5.4.2/bin/rmi_keystore.jks -Gclient.tries=3 -Gclient.retries_delay=1000 -l /mnt/jmeter/master/master.log"
+    properties:
+      log_level.jmeter: WARNING
+      log_level.jmeter.threads: DEBUG
+      ramp-up: 600
+      hold-for: 1200
+      iterations: 50
+  blazemeter:
+    browser-open: none
+    report-times-multiplier: 1000 # to second
+    timeout: 5s
+  console:
+    disable: true
+    screen: console
+
+settings:
+  check-interval: 1s
+  default-executor: jmeter
+
+reporting:
+- module: final-stats
+  summary: true
+  percentiles: false
+  summary-labels: false
+  failed-labels: false
+  test-duration: true
+  
