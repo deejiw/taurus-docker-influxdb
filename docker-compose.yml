@@ -8,7 +8,7 @@ services:
     volumes:
       - ./key/rmi_keystore.jks:${keystorePath}:ro
       - ./py/jmx2yaml.py:/usr/local/bin/jmx2yaml:ro
-      - ./artifacts:/tmp/artifacts
+      # - ./artifacts:/tmp/artifacts
       - ./bzt-configs:/bzt-configs
       - ./data:/data
       - ./log:/mnt/jmeter
@@ -133,7 +133,7 @@ services:
   telegraf:
     image: telegraf:1.21.2-alpine
     container_name: telegraf
-    user: root
+    user: telegraf:${dockerGroupID}
     environment:
     - INFLUX_ADDR=${influxAddr}
     - INFLUX_ORG=${influxOrg}
@@ -141,7 +141,6 @@ services:
     volumes:
     - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
     - /var/run/docker.sock:/var/run/docker.sock
-    command: sudo usermod -aG docker telegraf
     depends_on: 
       - influxdb
     deploy:
