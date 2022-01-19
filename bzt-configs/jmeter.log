@@ -1,20 +1,20 @@
-2022-01-18 17:57:09,866 INFO o.j.r.PluginManagerCMD: Command is: install-for-jmx
-2022-01-18 17:57:10,009 INFO o.j.r.JARSourceHTTP: Found cached repo
-2022-01-18 17:57:10,429 INFO o.j.r.PluginManager: Plugins Status: [jpgc-functions=2.1, jpgc-casutg=2.10, jpgc-dummy=0.4, jpgc-ffw=2.0, jpgc-fifo=0.2, jpgc-json=2.7, jpgc-prmctl=0.4, jpgc-perfmon=2.1, jpgc-plugins-manager=1.3, bzm-random-csv=0.8, jpgc-tst=2.5, jmeter-core=5.4.2, jmeter-ftp=5.4.2, jmeter-http=5.4.2, jmeter-jdbc=5.4.2, jmeter-jms=5.4.2, jmeter-junit=5.4.2, jmeter-java=5.4.2, jmeter-ldap=5.4.2, jmeter-mail=5.4.2, jmeter-mongodb=5.4.2, jmeter-native=5.4.2, jmeter-tcp=5.4.2, jmeter-components=5.4.2]
-2022-01-18 17:57:10,433 INFO o.j.r.PluginManagerCMD: Params line is: /bzt-configs/modified_purchase-1.jmx
-2022-01-18 17:57:10,940 INFO o.a.j.s.SaveService: Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
-2022-01-18 17:57:10,982 INFO o.a.j.s.SaveService: Using SaveService properties version 5.0
-2022-01-18 17:57:10,989 INFO o.a.j.s.SaveService: Using SaveService properties file encoding UTF-8
-2022-01-18 17:57:11,036 INFO o.a.j.p.h.c.CacheManager: Will only cache the following methods: [GET]
-2022-01-18 17:57:11,048 INFO o.a.j.s.SampleResult: Note: Sample TimeStamps are START times
-2022-01-18 17:57:11,049 INFO o.a.j.s.SampleResult: sampleresult.default.encoding is set to ISO-8859-1
-2022-01-18 17:57:11,050 INFO o.a.j.s.SampleResult: sampleresult.useNanoTime=true
-2022-01-18 17:57:11,050 INFO o.a.j.s.SampleResult: sampleresult.nanoThreadSleep=5000
-2022-01-18 17:57:11,060 INFO o.a.j.p.h.c.CookieManager: Settings: Delete null: true Check: true Allow variable: true Save: false Prefix: COOKIE_
-2022-01-18 17:57:11,084 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/html is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
-2022-01-18 17:57:11,084 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xhtml+xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
-2022-01-18 17:57:11,084 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
-2022-01-18 17:57:11,085 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
-2022-01-18 17:57:11,085 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/vnd.wap.wml is org.apache.jmeter.protocol.http.parser.RegexpHTMLParser
-2022-01-18 17:57:11,086 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/css is org.apache.jmeter.protocol.http.parser.CssParser
-2022-01-18 17:57:11,169 INFO o.j.r.PluginManager: Finishing without changes
+2022-01-19 10:37:32,677 INFO o.j.r.PluginManagerCMD: Command is: install-for-jmx
+2022-01-19 10:37:32,749 INFO o.j.r.JARSourceHTTP: Found cached repo
+2022-01-19 10:37:33,116 INFO o.j.r.PluginManager: Plugins Status: [jpgc-functions=2.1, jpgc-casutg=2.10, jpgc-dummy=0.4, jpgc-ffw=2.0, jpgc-fifo=0.2, jpgc-json=2.7, jpgc-prmctl=0.4, jpgc-perfmon=2.1, jpgc-plugins-manager=1.3, bzm-random-csv=0.8, jpgc-tst=2.5, jmeter-core=5.4.2, jmeter-ftp=5.4.2, jmeter-http=5.4.2, jmeter-jdbc=5.4.2, jmeter-jms=5.4.2, jmeter-junit=5.4.2, jmeter-java=5.4.2, jmeter-ldap=5.4.2, jmeter-mail=5.4.2, jmeter-mongodb=5.4.2, jmeter-native=5.4.2, jmeter-tcp=5.4.2, jmeter-components=5.4.2]
+2022-01-19 10:37:33,119 INFO o.j.r.PluginManagerCMD: Params line is: /bzt-configs/modified_purchase.jmx
+2022-01-19 10:37:33,561 INFO o.a.j.s.SaveService: Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
+2022-01-19 10:37:33,603 INFO o.a.j.s.SaveService: Using SaveService properties version 5.0
+2022-01-19 10:37:33,610 INFO o.a.j.s.SaveService: Using SaveService properties file encoding UTF-8
+2022-01-19 10:37:33,667 INFO o.a.j.p.h.c.CacheManager: Will only cache the following methods: [GET]
+2022-01-19 10:37:33,674 INFO o.a.j.s.SampleResult: Note: Sample TimeStamps are START times
+2022-01-19 10:37:33,674 INFO o.a.j.s.SampleResult: sampleresult.default.encoding is set to ISO-8859-1
+2022-01-19 10:37:33,675 INFO o.a.j.s.SampleResult: sampleresult.useNanoTime=true
+2022-01-19 10:37:33,675 INFO o.a.j.s.SampleResult: sampleresult.nanoThreadSleep=5000
+2022-01-19 10:37:33,680 INFO o.a.j.p.h.c.CookieManager: Settings: Delete null: true Check: true Allow variable: true Save: false Prefix: COOKIE_
+2022-01-19 10:37:33,702 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/html is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2022-01-19 10:37:33,703 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xhtml+xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2022-01-19 10:37:33,703 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2022-01-19 10:37:33,703 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2022-01-19 10:37:33,703 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/vnd.wap.wml is org.apache.jmeter.protocol.http.parser.RegexpHTMLParser
+2022-01-19 10:37:33,704 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/css is org.apache.jmeter.protocol.http.parser.CssParser
+2022-01-19 10:37:33,788 INFO o.j.r.PluginManager: Finishing without changes
